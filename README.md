@@ -39,7 +39,7 @@ Finally, your program should terminate when the current input command is 'quit'.
 
 
 
-##Pj2
+## Pj2
 you are to implement a syntax checker and a pretty printer that supports system-supported functions.
 
 The system-supported functions of OurC system are listed below.
@@ -52,9 +52,10 @@ The system-supported functions of OurC system are listed below.
   ListFunction(char name[]);   // the definition of a particular function
   Done();                            // exit the interpreter
   
+  
 在error message的部分，共有三種error messages。其例如下：
 
-               Line 3 : unrecognized token with first char : '$'                       // lexical error
-               Line 2 : unexpected token : '*'                                                  // syntactical error (token recognized)
-               Line 5 : undefined identifier : 'bcd'                                           // semantic error (grammar ok)
+Line 3 : unrecognized token with first char : '$'                        // lexical error
+Line 2 : unexpected token : '*'                                         // syntactical error (token recognized)
+Line 5 : undefined identifier : 'bcd'                                  // semantic error (grammar ok)
 
