@@ -1,7 +1,7 @@
 # programming-language
 Store all homework for programming languages
 
-##PJ1 
+## PJ1 
 
 For this project, you must write an interpreter that is capable of interpreting commands that are specified using the following syntax.
 
