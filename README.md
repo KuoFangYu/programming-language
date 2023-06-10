@@ -57,7 +57,7 @@ The system-supported functions of OurC system are listed below.
   
 在error message的部分，共有三種error messages。其例如下：
 
-Line 3 : unrecognized token with first char : '$'                        // lexical error
-Line 2 : unexpected token : '*'                                         // syntactical error (token recognized)
-Line 5 : undefined identifier : 'bcd'                                  // semantic error (grammar ok)
+  Line 3 : unrecognized token with first char : '$'                        // lexical error
+  Line 2 : unexpected token : '*'                                         // syntactical error (token recognized)
+  Line 5 : undefined identifier : 'bcd'                                  // semantic error (grammar ok)
 
