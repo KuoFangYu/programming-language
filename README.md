@@ -44,15 +44,15 @@ you are to implement a syntax checker and a pretty printer that supports system-
 
 The system-supported functions of OurC system are listed below.
 
-  ListAllVariables();          // just the names of the (global) variables, 
-                               // sorted (from smallest to greatest)
-  ListAllFunctions();          // just the names of the (user-defined) 
-                               // functions, sorted
-  ListVariable(char name[]);   // the definition of a particular variable
+1.  ListAllVariables();          // just the names of the (global) variables, 
+                                 // sorted (from smallest to greatest)
+2.  ListAllFunctions();          // just the names of the (user-defined) 
+                                 // functions, sorted
+3.  ListVariable(char name[]);   // the definition of a particular variable
 
-  ListFunction(char name[]);   // the definition of a particular function
+4.  ListFunction(char name[]);   // the definition of a particular function
 
-  Done();                      // exit the interpreter
+5.  Done();                      // exit the interpreter
   
   
 在error message的部分，共有三種error messages。其例如下：
