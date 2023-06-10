@@ -1,0 +1,58 @@
+2
+     
+    int  
+   x  
+ 
+   ;   
+ x=  
+   
+    10;
+
+    cout 
+    <<   
+x 
+
+   ;  { int x 
+; int y;y=x*2;}; 
+
+    int  
+   y  
+ 
+   ;   
+int z ;
+
+x =y+z
+- 2*x;3
+
+   -z;   
+
+int w ;   
+
+ w   
+  ++;
+string str 
+    ;
+
+str = 
+"This is a fine day.\n" ;
+str 
+= 
+str + "Isn't it?\n" 
+;
+cout<<str;float 
+     y 
+                        ;    int x ;
+  { int x; int y;x=x+y;    
+    int z;
+    
+    }{}y = 20 * ( x - 
+     
+     y ) / 34.5 ;
+cout << "Value of 'y' is now : " 
+      << y   
+      << "\n"    
+      ;Done
+  (    
+    )    
+    ;   int y = 5 ;
+cout << y ;  
