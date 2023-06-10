@@ -40,7 +40,7 @@ Finally, your program should terminate when the current input command is 'quit'.
 
 
 ## Pj2
-you are to implement a syntax checker and a pretty printer that supports system-supported functions.
+For this project, you are to implement a syntax checker and a pretty printer that supports system-supported functions.
 
 The system-supported functions of OurC system are listed below.
 
