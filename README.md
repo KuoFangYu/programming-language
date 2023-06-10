@@ -5,10 +5,28 @@ Store all homework for programming languages
 
 For this project, you must write an interpreter that is capable of interpreting commands that are specified using the following syntax.
 ```
-<Command>      ::= <Statement> ';' | <BooleanExp> ';' | <ArithExp> ';' | QUIT
-<Statement>    ::= IDENT ':=' <ArithExp>
-<BooleanExp>   ::= <ArithExp> ( '=' | '<>' | '>' | '<' | '>=' | '<=' ) <ArithExp>
-<ArithExp>     ::= <Term> | <ArithExp> '+' <Term> | <ArithExp> '-' <Term>
-<Term>         ::= <Factor> | <Term> '*' <Factor> | <Term> '/' <Factor>
-<Factor>       ::= [ SIGN ] NUM | IDENT | '(' <ArithExp> ')'
-```    
+  <Command> ::= IDENT ( ':=' <ArithExp> | <IDlessArithExpOrBexp> ) ';' 
+                | <NOT_IDStartArithExpOrBexp> ';' 
+                | QUIT
+
+  <IDlessArithExpOrBexp>  ::= {   '+' <Term>   | '-' <Term> 
+                                | '*' <Factor> | '/' <Factor> 
+                              }
+                              [ <BooleanOperator> <ArithExp> ]
+
+  <BooleanOprator>        ::= '=' | '<>' | '>' | '<' | '>=' | '<='
+
+  <NOT_ID_StartArithExpOrBexp> 
+                          ::= <NOT_ID_StartArithExp> 
+                              [ <BooleanOperator> <ArithExp> ]
+
+  <NOT_ID_StartArithExp>  ::= <NOT_ID_StartTerm> { '+' <Term> | '-' <Term> }
+  <NOT_ID_StartTerm>      ::= <NOT_ID_StartFactor> { '*' <Factor> | '/' <Factor> }
+  <NOT_ID_StartFactor>    ::= [ SIGN ] NUM | '(' <ArithExp> ')'
+  <ArithExp>              ::= <Term> { '+' <Term> | '-' <Term> }
+  <Term>                  ::= <Factor> { '*' <Factor> | '/' <Factor> }
+  <Factor>                ::= IDENT | [ SIGN ] NUM | '(' <ArithExp> ')'
+```
+
+
+
