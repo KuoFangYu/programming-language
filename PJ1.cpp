@@ -416,64 +416,6 @@ class Pj1 {
     
   } // Unconditional_carry()
 
-  void Sign_mod() {
-    bool is_int ;
-    bool is_double ;
-    
-    for ( int i = 0 ; i < m_all_token.size() ; i++ ) {
-      // m_all_token[i].pop_back() ;
-      
-      for ( int j = 0 ; j < m_all_token[i].size() ; j++ ) {
-        if ( m_all_token[i][j].type == "sign" ) {
-          
-          Is_Num( m_all_token[i][j+1].content, is_double, is_int ) ;
-          
-          if (  is_int == false && is_double == false ) {
-            
-            // cout << "Unexpected token : '" ;
-            // cout << m_all_token[i][j+1].content << "'" << endl ;
-          } // if()
-          else if ( j == 0 ) {
-          
-            if ( m_all_token[i][j].content[0] == '-' ) {
-              double num = atof( m_all_token[i][j+1].content.c_str() ) ;
-              
-              num *= -1 ;
-              char ch[50] ;
-              string str ;
-              sprintf( ch, "%f", num ) ;
-              str = Char_To_String( ch, str ) ;
-              m_all_token[i][j+1].content = str ;
-              
-            } // if()
-            
-          
-            m_all_token[i][j+1].is_new_line = m_all_token[i][j].is_new_line ;
-            m_all_token[i].erase( m_all_token[i].begin() + j ) ;
-          } // else if()
-          else if ( ( j != 0 && m_all_token[i][j-1].type != "sign" ) ) {
-            if ( m_all_token[i][j].content[0] == '-' ) {
-              double num = atof( m_all_token[i][j+1].content.c_str() ) ;
-              
-              num *= -1 ;
-              char ch[50] ;
-              string str ;
-              sprintf( ch, "%f", num ) ;
-              str = Char_To_String( ch, str ) ;
-              m_all_token[i][j+1].content = str ;
-            } // if()
-            
-          
-            m_all_token[i][j+1].is_new_line = m_all_token[i][j].is_new_line ;
-            m_all_token[i].erase( m_all_token[i].begin() + j ) ;
-            
-          } // else if()
-          
-        } // if()
-      } // for()
-    } // for()
-  } // Sign_mod()              
-  
   string Char_To_String( char ch[50], string str ) {
     
     for ( int i = 0 ; i < 49 && ch[i] != '\0' ; i++ ) {
