@@ -12,7 +12,7 @@ For this project, you must write an interpreter that is capable of interpreting 
   <Term> ::= <Factor> | <Term> '*' <Factor> | <Term> '/' <Factor>
   <Factor> ::= [ SIGN ] NUM | IDENT | '(' <ArithExp> ')'
 
-  The above syntax is translation:
+The above syntax is translation:
 
   <Command> ::= IDENT ( ':=' <ArithExp> | <IDlessArithExpOrBexp> ) ';' 
                 | <NOT_IDStartArithExpOrBexp> ';' 
