@@ -5,6 +5,15 @@ Store all homework for programming languages
 
 For this project, you must write an interpreter that is capable of interpreting commands that are specified using the following syntax.
 ```
+  <Command> ::= <Statement> ';' | <Baoleantxe> ';' | <arithaxn> ';' | QUIT
+  <Statement> ::= IDENT ':=' <Arithaxn>
+  <BooleanExp> ::= <Arithexp> ( '=' | '<>' | '>' ㅣ '<' ㅣ '>=' ㅣ '<=' ) <ArithExp>
+  <ArithExp> ::= <Term> | <ArithExp> '+' <Term> | <ArithExp> '-' <Term>
+  <Term> ::= <Factor> | <Term> '*' <Factor> | <Term> '/' <Factor>
+  <Factor> ::= [ SIGN ] NUM | IDENT | '(' <ArithExp> ')'
+
+  The above syntax is translation:
+
   <Command> ::= IDENT ( ':=' <ArithExp> | <IDlessArithExpOrBexp> ) ';' 
                 | <NOT_IDStartArithExpOrBexp> ';' 
                 | QUIT
