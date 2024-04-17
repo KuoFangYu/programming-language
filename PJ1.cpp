@@ -91,9 +91,9 @@ class Pj1 {
   } // Is_special_sign()
   
   
-  void Push( vector< Token_data > &tokens, Token_data &atoken, bool &newline ) {
+  void Push( vector< Token_data > &tokens, Token_data &atoken, bool &newline ) { // 
     if ( newline ) 
-      atoken.is_new_line = true ;
+      atoken.is_new_line = true ; 
       
     newline = false ;
     tokens.push_back( atoken ) ;
@@ -112,10 +112,10 @@ class Pj1 {
     char ch ;
     
     while ( isdone == false ) {
-      atoken.line = 1 ;
+      atoken.line = 1 ;  // 紀錄每個指令開始的行數 
       bool is_double = false ;
       bool is_int = false ;
-      while ( nextline == false ) {
+      while ( nextline == false ) {     
         cin.get( ch ) ;
       
         if ( cin.eof() ) {
@@ -125,13 +125,13 @@ class Pj1 {
             Push( tokens, atoken, newline ) ; 
         } // if()
         
-        else if ( ch == ' ' || ch == '\t' || ch == '\n' ) {   // 是不是空白之類的
-          if ( !atoken.content.empty() ) {  // 不是空的
-            Push( tokens, atoken, newline ) ;      // 丟到序列
+        else if ( ch == ' ' || ch == '\t' || ch == '\n' ) {    // 遇到換行、空格等符號將1個token push進tokens 
+          if ( !atoken.content.empty() ) {  
+            Push( tokens, atoken, newline ) ;      
             // atoken.is_new_line = false ;
           } // if()
           
-          if ( ch == '\n' ) {
+          if ( ch == '\n' ) {   //跳行行數要算 
             newline = true ;
             for ( int i = 0; i < tokens.size() ; i++ ) {
               if ( tokens[i].line == atoken.line ) {
@@ -142,13 +142,13 @@ class Pj1 {
           } // if()
           
         } // else if()
-        else if ( IsOperator( ch ) ) {   // 是符號嗎  
-          if ( !atoken.content.empty() ) {   // 不是空的
-            Push( tokens, atoken, newline ) ;   // 丟進去符號前面的
+        else if ( IsOperator( ch ) ) {   //   遇到符號 
+          if ( !atoken.content.empty() ) {   
+            Push( tokens, atoken, newline ) ;   
             // atoken.is_new_line = false ; 
           } // if()
         
-          Is_special_sign( ch, atoken.content, tokens, atoken.line, newline ) ;    // 是不是兩個符號組的符號 
+          Is_special_sign( ch, atoken.content, tokens, atoken.line, newline ) ;    //  如果是特殊符號 
           if ( atoken.content == ";" ) {
             if ( tokens.size() == 0 ) {
               char cha = '\0' ;
@@ -162,9 +162,9 @@ class Pj1 {
             
           } // if()
           
-          if ( atoken.content != "//" ) {  // 不是註解
+          if ( atoken.content != "//" ) {  // 註解要跳過 
             if ( atoken.content == ";" && tokens.size() == 0 ) {
-              Push( tokens, atoken, newline ) ;    // 丟到序列 
+              Push( tokens, atoken, newline ) ;   
               newline = true ; 
             } // if()
             else {
@@ -177,7 +177,7 @@ class Pj1 {
           atoken.content.clear() ;
           atoken.type.clear() ;
         } // else if()
-        else if ( ch == '.' ) {
+        else if ( ch == '.' ) {   //遇到點判斷是不是數字 
           Is_Num( atoken.content, is_double, is_int ) ;
           if ( !is_double && !is_int )
             Push( tokens, atoken, newline ) ;
@@ -185,7 +185,7 @@ class Pj1 {
           atoken.content += ch ;
             
         } // else if()
-        else if ( ch == '_' ) {
+        else if ( ch == '_' ) {    
           Is_Num( atoken.content, is_double, is_int ) ;
           if ( is_double || is_int ) {
             Push( tokens, atoken, newline ) ;
@@ -322,7 +322,7 @@ class Pj1 {
   } // Find_variable()
   
   
-  void Judgment_Type() {
+  void Judgment_Type() {  // 判斷類型 
     
     bool is_int = false ;
     bool is_double = false ;
@@ -388,7 +388,7 @@ class Pj1 {
   } // Judgment_Type()
   
   
-  double Unconditional_carry( double num ) {
+  double Unconditional_carry( double num ) {  // 無條件進位 
     
     int pos = 0 ;
   
@@ -416,6 +416,7 @@ class Pj1 {
     
   } // Unconditional_carry()
 
+  
   string Char_To_String( char ch[50], string str ) {
     
     for ( int i = 0 ; i < 49 && ch[i] != '\0' ; i++ ) {
@@ -427,7 +428,7 @@ class Pj1 {
   } // Char_To_String()       
   
   void Statement( bool & correct, double & value, int & column, int & row, bool &syntax_error ) {
- 
+ 	// <Statement> ::= IDENT ':=' <ArithExp> 
     bool exp1Correct ;
     bool exp2Correct ;
     double exp1Value ;
@@ -443,10 +444,10 @@ class Pj1 {
       return ;
     } // if()
     
-    con.name = m_all_token[column][row].content ;
-    row++ ;
+    con.name = m_all_token[column][row].content ;   
+    row++ ;												// next token
     
-    if ( m_all_token[column][row].type != "statement" ) {
+    if ( m_all_token[column][row].type != "statement" ) {  // :=
       
       correct = false ;
       value = 0.0 ;
@@ -472,9 +473,9 @@ class Pj1 {
       return ;
     } // if()
     
-    Exp( exp1Correct, exp1Value, column, row, syntax_error );
+    Exp( exp1Correct, exp1Value, column, row, syntax_error );  // arithexp 算術表達式
     
-    if ( !exp1Correct ) {
+    if ( !exp1Correct ) { 
       correct = false ;
       value = 0.0 ;
       return ;
@@ -484,9 +485,9 @@ class Pj1 {
     if ( m_all_token[column][row+1].content == "quit" || m_all_token[column][row+1].content != ";" ) {
       syntax_error = true ;
       correct = false ;
-      if ( m_all_token[column][row+1].content.size() == 1 && m_all_token[column][row+1].type != "ident"
+      if ( m_all_token[column][row+1].content.size() == 1 && m_all_token[column][row+1].type != "ident"  // 出現奇怪符號 
            && m_all_token[column][row+1].type != "int" && m_all_token[column][row+1].type != "double"
-           && Is_first(  m_all_token[column][row+1].content ) ) {
+           && Is_first( m_all_token[column][row+1].content ) ) {  // is . or <> or := ...
           
         cout << "> Unrecognized token with first char : '" ;
         cout << m_all_token[column][row+1].content << "'" << endl ;
@@ -503,7 +504,7 @@ class Pj1 {
     } // if()
            
            
-    con.is_float = m_is_float ;
+    con.is_float = m_is_float ;    
     if ( !m_is_float ) { 
       int asd = ( int ) exp1Value ;
       exp1Value = ( double ) asd ;
@@ -521,6 +522,7 @@ class Pj1 {
   
   
   void BooleanExp( bool & correct, int & column, int & row, bool & syntax_error ) {
+  	// <BooleanExp> ::= <Arithexp> ( '=' | '<>' | '>' | '<' | '>=' | '<=' ) <ArithExp> 
     bool exp1Correct ;
     bool exp2Correct ;
     double exp1Value ;
@@ -528,18 +530,18 @@ class Pj1 {
   
     double tolerance = 0.01 ;
     
-    Exp( exp1Correct, exp1Value, column, row, syntax_error );
+    Exp( exp1Correct, exp1Value, column, row, syntax_error ); //  Arithexp
     
-    if ( !exp1Correct ) {
+    if ( !exp1Correct ) {  // problem 
       syntax_error = true ;
       correct = false ;
       return ;
       
     } // if()
     
-    row++ ;
+    row++ ; 		// look next token
 
-    if ( m_all_token[column][row].content != "=" && m_all_token[column][row].content != ">"  
+    if ( m_all_token[column][row].content != "=" && m_all_token[column][row].content != ">"         // boolean, statement
          && m_all_token[column][row].content != ">=" && m_all_token[column][row].content != "<" 
          && m_all_token[column][row].content != "<=" && m_all_token[column][row].content != "<>" 
          && m_all_token[column][row].content != "!="  ) {
@@ -566,7 +568,7 @@ class Pj1 {
     row++ ;
     
 
-    if ( m_all_token[column][row].content == "quit" || m_all_token[column][row].content != ";" ) {
+    if ( m_all_token[column][row].content == "quit" || m_all_token[column][row].content != ";" ) {   // 出現奇怪符號
       syntax_error = true ;
       
       if ( m_all_token[column][row].content.size() == 1 && m_all_token[column][row].type != "ident"
@@ -591,7 +593,7 @@ class Pj1 {
     
     
     
-    exp1Value = Unconditional_carry( exp1Value ) ;
+    exp1Value = Unconditional_carry( exp1Value ) ;    
     exp2Value = Unconditional_carry( exp2Value ) ;
     
     if (  compare == "=" ) {
@@ -648,8 +650,8 @@ class Pj1 {
   } // BooleanExp()
    
 
-  void Exp( bool & correct, double & value, int & column, int & row, bool &syntax_error ) {
-  // <Exp>        ::= <term> {+ <term> | - <term>}
+  void Exp( bool & correct, double & value, int & column, int & row, bool &syntax_error ) {   //Arithexp
+  // <Exp> ::= <term> {+ <term> | - <term>}
     bool term1Correct ;
     bool term2Correct ;
     double term1Value ;
@@ -658,7 +660,7 @@ class Pj1 {
     
     Term( term1Correct, term1Value, column, row, syntax_error ) ;
     
-    if ( !term1Correct ) {
+    if ( !term1Correct ) {   // have problem
       correct = false ;
       value = 0.0 ;
       return ;
@@ -671,7 +673,7 @@ class Pj1 {
       peek_token = m_all_token[column][peek] ;
       
       if ( peek_token.content == "quit" || peek_token.content == ";" 
-           || ( peek_token.content != "+" && peek_token.content != "-" ) ) {
+           || ( peek_token.content != "+" && peek_token.content != "-" ) ) {   // not + or -
         
         correct = true ;
         value = term1Value ;
@@ -741,7 +743,7 @@ class Pj1 {
 
 
   void Term( bool & correct, double & value, int & column, int & row, bool &syntax_error ) {
-  // <term>       ::= <factor> {* <factor> | / <factor>}
+  // <term> ::= <factor> {* <factor> | / <factor>}
  
     bool factor1Correct ;
     bool factor2Correct ;
@@ -764,7 +766,7 @@ class Pj1 {
       peek = row + 1 ;
       peek_token = m_all_token[column][peek] ;
       
-      if ( peek_token.content == "quit" || peek_token.content == ";" 
+      if ( peek_token.content == "quit" || peek_token.content == ";"     
            || ( peek_token.content != "*" && peek_token.content != "/" ) ) {
         correct = true ;
         value = factor1Value ;
@@ -810,17 +812,17 @@ class Pj1 {
   
   
   void Factor( bool & correct, double & value, int & column, int & row, bool &syntax_error ) { 
-  // <factor>     ::= NUM | IDENT | (<Exp>)
+  // <factor> ::= NUM | IDENT | (<Exp>)
     int float_error = 0 ;
     int position = 0 ;
     bool expCorrect = false ;
     double expValue = 0.0 ;
     row++ ;
     
-    if ( m_all_token[column][row].content == "+" || m_all_token[column][row].content == "-" ) { 
+    if ( m_all_token[column][row].content == "+" || m_all_token[column][row].content == "-" ) {   // is_num?
       if ( m_all_token[column][row+1].type == "double" || m_all_token[column][row+1].type == "int" ) {
         
-        if ( m_all_token[column][row].content[0] == '-' ) {
+        if ( m_all_token[column][row].content[0] == '-' ) {    // 負的做變號and合併
           double num = atof( m_all_token[column][row+1].content.c_str() ) ;
           
           num *= -1 ;
@@ -837,7 +839,7 @@ class Pj1 {
       } // if()
     } // if()
     
-    if ( m_all_token[column][row].type != "int" && m_all_token[column][row].type != "double" 
+    if ( m_all_token[column][row].type != "int" && m_all_token[column][row].type != "double"    // not number or 變數 
          && m_all_token[column][row].type != "ident" && m_all_token[column][row].type != "left_Paren" ) {
       if ( m_all_token[column][row].content == "+" || m_all_token[column][row].content == "-" ) { 
         
@@ -926,13 +928,13 @@ class Pj1 {
      
     if ( m_all_token[column][row].type == "ident" ) {
       
-      if ( Find_variable( m_all_token[column][row].content, position ) ) {
+      if ( Find_variable( m_all_token[column][row].content, position ) ) {  // 變數是否宣告過 
         correct = true ;
         value = m_variable[position].value ;
         if ( !m_is_float )
           m_is_float = m_variable[position].is_float ;
       } // if()
-      else {
+      else {   
         if ( m_all_token[column][row].is_new_line ) {
           syntax_error = true ;
           if ( m_all_token[column][row+1].type != "operator" && m_all_token[column][row+1].type != "boolean" 
@@ -975,7 +977,7 @@ class Pj1 {
     
     else if ( m_all_token[column][row].content == "(" ) { 
       m_left++ ;
-      Exp( expCorrect, expValue, column, row, syntax_error ) ;
+      Exp( expCorrect, expValue, column, row, syntax_error ) ;   // arithexp 
       
       if ( !expCorrect ) {
         correct = false ;
@@ -1123,7 +1125,7 @@ int main() {
           syntax_error = true ;
       } // if()
       
-      else if ( boolean1 ) {
+      else if ( boolean1 ) {   //boolesnExp
         // cout << "2" << endl ; 
         start.BooleanExp( correct, column, row, syntax_error ) ;
         
